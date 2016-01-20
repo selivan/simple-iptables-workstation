@@ -5,14 +5,14 @@
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -m state --state INVALID -j DROP
 -A INPUT -i lo -j ACCEPT -m comment --comment "loopback"
--A INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT
--A INPUT -p icmp --icmp-type time-exceeded -j ACCEPT
 # ipsec
 -A INPUT -p udp -m udp --dport 500 -j ACCEPT -m comment --comment "ipsec"
 -A INPUT -p esp -j ACCEPT -m comment --comment "ipsec"
 -A INPUT -p ah -j ACCEPT -m comment --comment "ipsec"
 # vbox
 -A INPUT -i vboxnet0 -j ACCEPT -m comment --comment "VirtualBox host-only net"
+# ICMP
+-A INPUT -p icmp --icmp-type time-exceeded -j ACCEPT
 # MTU autodiscovery
 -A INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT -m comment --comment "MTU autodiscovery"
 -A INPUT -p icmp --icmp-type fragmentation-needed -j ACCEPT -m comment --comment "MTU autodiscovery"
